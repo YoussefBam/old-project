@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+
+        <div class="jumbotron" style:margin="10%">
+            <br>
+            <h1 class="display-4" >Rapprochement bancaire</h1>
+            <p class="lead">Prêt pour l'équilibre parfait ? Découvrez mon programme de rapprochement bancaire !</p>
+            <hr class="my-4">
+
+            <p class="lead">
+                <form action="/rapprocher" , method="POST" enctype="multipart/form-data">
+
+                    <!-- chatgpt helped with file  input/ and group and the css and -->
+                    <div class="file-input-group">
+
+                     <div class="file-input">
+                        <label for="formFileLg" class="form-label">Grand Livre</label>
+                        <input class="form-control form-control-lg" id="formFileLg" type="file" accept=".xlsx,.xls" name="general_ledger" >
+                      </div>
+
+
+                     <div class="file-input">
+                        <label for="formFileLg" class="form-label">Relevé bancaire</label>
+                        <input class="form-control form-control-lg" id="formFileLg" type="file" accept=.xlsx,.xls name="bank_statement">
+                      </div>
+
+                    </div>
+                    <br>
+                    <!-- chatgpt helped with centering button and put div and its class -->
+
+                    <div class="button-container">
+
+                    <button type="submit"  class="btn btn-dark btn-lg" >Rapprocher</button>
+
+                    </div>
+
+                </form>
+            </p>
+        </div>
+
+
+
+        <!-- chatgpt told me to add enctype="multipart/form-data" -->
+
+
+{% endblock %}
+
+

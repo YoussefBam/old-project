@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+
+{% block title %}Rapprochement{% endblock %}
+
+
+
+{% block script %}
+        document.addEventListener("DOMContentLoaded",function(){
+            // chat helped with  |tojson  and with "tr[name='row']" and  parseFloat and get attribute("value") and includes and classList.add
+            const green = {{ green|tojson }};
+            const yellow = {{ yellow|tojson }};
+            let rows= document.querySelectorAll("tr[name='row']");
+            for(i=0; i< rows.length; i++)
+            {
+                if (green.includes(parseFloat(rows[i].getAttribute("value")))){
+                    rows[i].classList.add("table-success");
+                }
+                else if (yellow.includes(parseFloat(rows[i].getAttribute("value")))){
+                    rows[i].classList.add("table-warning");
+                }
+            }
+
+        });
+        {% endblock %}
+
+        {% block body %}
+    <form action="/rapport" method="POST">
+        <!-- maybe chatgpt helped with margin-->
+        <button class="btn btn-dark btn-lg" type="submit" name="rapport" style="margin:1%;">Générer un rapport</button>
+    </form>
+
+
+    <form action="/manuelle" method="POST">
+        <!-- https://stackoverflow.com/questions/30171508/how-to-center-a-button-without-a-div-using-css -->
+
+            <button class="btn btn-dark btn-lg" type="submit" name="rapprocher" style="margin:1%";>Rapprocher Manuellement</button>
+
+
+             <!-- chatgpt helped with  style="text-align: center;"-->
+            <div style="text-align: center;">
+                <p class="center-container" id="caption">Problémes rencontrés</p>
+
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="problem" value="amount">
+                <label class="form-check-label" for="inlineCheckbox1" id="caption">Montant</label></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="problem" value="libelle">
+                <label class="form-check-label" for="inlineCheckbox2" id="caption">Libelle</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="problem" value="date">
+                <label class="form-check-label" for="inlineCheckbox3" id="caption">Date</label>
+              </div>
+            </div>
+
+        <!-- gpt helped with this structure  the div vlass line-->
+         <div class="line">
+                    <table class="table caption-top" id="table">
+                        <caption style="text-align:center" id="caption">Grand livre</caption>
+                        <thead>
+                            <tr>
+                                <th>Ligne</th>
+                                <th>Jour</th>
+                                <th>Mois</th>
+                                <th>Année</th>
+                                <th>Libellé</th>
+                                <th>Débit</th>
+                                <th>Crédit</th>
+                                <th>Sélection</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Used an i (int) loop first then gpt changed it to item -->
+                            {% for item in GL %}
+                            <tr>
+                                <td>{{ item["Ligne"] }}</td>
+                                <td>{{ item['Jour']}}</td>
+                                <td>{{ item['Mois'] }}</td>
+                                <td>{{ item['Annee']}}</td>
+                                <td>{{ item['Libelle'] }}</td>
+                                <td>{{ item['Debit'] }}</td>
+                                <td>{{ item['Credit'] }}</td>
+                                <td>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="checkbox" value="{{ item['id'] }}" name="GL" style="margin-right: 5px;">
+                                        <button type="submit" name="generate" class="btn btn-link" value="{{ item['id'] }}" style="padding: 0; border: none; background: none;">
+                                                <img src="static/search.png" style="width:20px;height:20px; margin-left:20px;">
+                                            </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                <!-- Relevé Bancaire Table -->
+
+                    <table class="table caption-top" id="table">
+                        <caption style="text-align:center" id="caption">Relevé bancaire</caption>
+                        <thead>
+                            <tr>
+                                <th>Ligne</th>
+                                <th>Jour</th>
+                                <th>Mois</th>
+                                <th>Année</th>
+                                <th>Libellé</th>
+                                <th>Débit</th>
+                                <th>Crédit</th>
+                                <th>Sélection</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in BS %}
+                            <tr name="row"  value="{{ item['id'] }}">
+                                <td>{{ item["Ligne"] }}</td>
+                                <td>{{ item["Jour"] }}</td>
+                                <td>{{ item["Mois"] }}</td>
+                                <td>{{ item["Annee"] }}</td>
+                                <td>{{ item["Libelle"] }}</td>
+                                <td>{{ item["Debit"] }}</td>
+                                <td>{{ item["Credit"] }}</td>
+                                <td><input type="checkbox" value="{{ item['id'] }}" name="BS"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+        </div>
+    </form>
+    {% endblock %}

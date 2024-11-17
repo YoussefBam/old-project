@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}Rapport{% endblock %}
+
+{% block body %}
+
+
+<table class="table table-sm" style="width: 70%; margin-top: 5%; margin-left: 15%;">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Ligne</th>
+      <th scope="col">Date</th>
+      <th scope="col">Libellé</th>
+      <th scope="col">Débit</th>
+      <th scope="col">Crédit</th>
+      <th scope="col">Source</th>
+      <th scope="col">Probléme(s)</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+      {% for item in MAN %}
+      <tr>
+          <td>{{item["Ligne"]}}</td>
+          <td>{{item['Jour']}}/{{item['Mois']}}/{{item['Annee']}}</td>
+          <td>{{item["Libelle"]}}</td>
+          <td>{{item["Debit"]}}</td>
+          <td>{{item["Credit"]}}</td>
+          <td>{{item["Source"]}}</td>
+          <td>
+            {% if item["Amount_p"] == "yes" %}
+            <span class="badge rounded-pill text-bg-danger">Montant</span>
+
+            {% endif %}
+            {% if item["Date_p"] == "yes" %}
+            <span class="badge rounded-pill text-bg-info">Date</span>
+
+            {% endif %}
+            {% if item["Libelle_p"] == "yes" %}
+            <span class="badge rounded-pill text-bg-warning">Libellé</span>
+
+            {% endif %}
+            {% if item["Amount_p"] != "yes" and item["Date_p"] != "yes" and item["Libelle_p"] != "yes"  %}
+
+            <span class="badge rounded-pill text-bg-success">Aucun probléme</span>
+
+            {% endif %}
+          </td>
+      </tr>
+      {% endfor %}
+
+      {% for item in GL %}
+      <tr>
+        <td>{{item["Ligne"]}}</td>
+        <td>{{item['Jour']}}/{{item['Mois']}}/{{item['Annee']}}</td>
+        <td>{{item["Libelle"]}}</td>
+        <td>{{item["Debit"]}}</td>
+        <td>{{item["Credit"]}}</td>
+        <td>GL</td>
+        <td><span class="badge rounded-pill text-bg-secondary">Duplication</span></td>
+
+      {% endfor %}
+
+      {% for item in BS %}
+      <tr>
+        <td>{{item["Ligne"]}}</td>
+        <td>{{item['Jour']}}/{{item['Mois']}}/{{item['Annee']}}</td>
+        <td>{{item["Libelle"]}}</td>
+        <td>{{item["Debit"]}}</td>
+        <td>{{item["Credit"]}}</td>
+        <td>RB</td>
+        <td><span class="badge rounded-pill text-bg-primary">Omission</span></td>
+
+      {% endfor %}
+
+      {% for item in PER %}
+      <tr>
+        <td>{{item["Ligne"]}}</td>
+        <td>{{item['Jour']}}/{{item['Mois']}}/{{item['Annee']}}</td>
+        <td>{{item["Libelle"]}}</td>
+        <td>{{item["Debit"]}}</td>
+        <td>{{item["Credit"]}}</td>
+        <td>{{item["Source"]}}</td>
+        <td><span class="badge rounded-pill text-bg-success">Parfait</span></td>
+
+      {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

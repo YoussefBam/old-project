@@ -1,0 +1,62 @@
+/* BY CHATGPT BELOW */
+#table{
+    width:49%;
+    float: left;
+    margin-left:0.5%;
+}
+/* BY CHATGPT BELOW */
+.line{
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: 	#FAF9F6
+}
+
+.jumbotron{
+    margin:2%;
+
+}
+
+/* BY CHATGPT BELOW */
+
+.file-input-group {
+    display: flex;
+    gap: 20px;
+}
+/* BY CHATGPT BELOW */
+.file-input {
+    flex: 1; /* Distribute space evenly among file input containers */
+}
+/* BY CHATGPT BELOW */
+
+.display-4{
+    font-family: 'Roboto', sans-serif; /* Specify the Google Font and fallback */
+    font-weight: 550; /* Apply the bold variant of Roboto */
+}
+
+#caption{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 550;
+
+}
+
+/* BY CHATGPT BELOW */
+.button-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+
+}
+
+
+
+
+
+
+
+
+
+
